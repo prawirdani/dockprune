@@ -1,2 +1,6 @@
 /dist/
 /dockprune
+
+# Demo generation tooling (kept local only)
+/demo/
+/demo.tape

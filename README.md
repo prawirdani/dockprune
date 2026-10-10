@@ -108,12 +108,8 @@ make build-all    # build for every OS/arch into dist/
 make test         # run tests
 make test-race    # run tests with the race detector
 make lint         # golangci-lint, falls back to go vet
-make demo         # regenerate assets/demo.gif (needs vhs; records against a fake API)
 make clean        # remove dist/
 ```
-
-`make demo` starts `demo/fakeapi` — a demo-only fake Docker Engine API — and
-points `DOCKER_HOST` at it, so recording the GIF never touches a real daemon.
 
 ## Layout
 

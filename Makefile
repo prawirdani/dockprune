@@ -6,7 +6,7 @@ GOFLAGS := -trimpath
 PLATFORMS := linux/amd64 linux/arm64 darwin/amd64 darwin/arm64 windows/amd64 windows/arm64
 
 .PHONY: all build build-all build-linux build-darwin build-windows \
-	test test-race lint vet demo clean
+	test test-race lint vet clean
 
 all: lint test build
 
@@ -51,16 +51,6 @@ lint:
 		echo "golangci-lint not installed, falling back to go vet"; \
 		go vet ./...; \
 	fi
-
-# Regenerate assets/demo.gif. Starts the demo-only fake Docker API and points
-# DOCKER_HOST at it, so no real daemon or resources are touched. Requires vhs.
-demo: build
-	@go build -o /tmp/dockprune-fakeapi ./demo/fakeapi
-	@rm -f /tmp/dockprune-demo.sock
-	@/tmp/dockprune-fakeapi --socket /tmp/dockprune-demo.sock >/dev/null 2>&1 & echo $$! > /tmp/dockprune-demo.pid; \
-	for i in $$(seq 1 50); do [ -S /tmp/dockprune-demo.sock ] && break; sleep 0.1; done; \
-	DOCKER_HOST=unix:///tmp/dockprune-demo.sock vhs demo.tape; \
-	kill $$(cat /tmp/dockprune-demo.pid) 2>/dev/null || true
 
 clean:
 	rm -rf dist
