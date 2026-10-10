@@ -28,6 +28,19 @@ your existing Docker environment (`DOCKER_HOST`, contexts, TLS).
 
 ## Installation
 
+### Prebuilt binaries
+
+Every OS/arch binary is attached to each
+[release](https://github.com/prawirdani/dockprune/releases) (built by CI on every
+`v*` tag). Assets are named `dockprune-<os>-<arch>[.exe]` for
+`linux`/`darwin`/`windows` × `amd64`/`arm64`.
+
+Linux / macOS (installs to `/usr/local/bin`):
+
+```sh
+curl -fsSL "https://github.com/prawirdani/dockprune/releases/latest/download/dockprune-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')" -o dockprune && chmod +x dockprune && sudo mv dockprune /usr/local/bin/dockprune
+```
+
 ### Build from source
 
 ```sh
